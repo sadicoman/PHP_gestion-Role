@@ -38,16 +38,22 @@ try {
             }
             break;
         case "compte":
-            switch ($url[1]) {
-                case "profil":
-                    $utilisateurController->profil();
-                    break;
-                case "deconnexion":
-                    $utilisateurController->deconnexion();
-                    break;
-                default:
-                    throw new Exception("La page n'existe pas");
+            if (!Securite::estConnecte()) {
+                Toolbox::ajouterMessageAlerte("Veuillez vous connecter !", Toolbox::COULEUR_ROUGE);
+                header('Location: ' . URL . "login");
+            } else {
+                switch ($url[1]) {
+                    case "profil":
+                        $utilisateurController->profil();
+                        break;
+                    case "deconnexion":
+                        $utilisateurController->deconnexion();
+                        break;
+                    default:
+                        throw new Exception("La page n'existe pas");
+                }
             }
+
             break;
         default:
             throw new Exception("La page n'existe pas");
