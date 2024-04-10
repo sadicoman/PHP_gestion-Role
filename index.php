@@ -40,8 +40,10 @@ try {
         case "compte":
             switch ($url[1]) {
                 case "profil":
-                    $visiteurController->accueil();
+                    $utilisateurController->profil();
                     break;
+                default:
+                    throw new Exception("La page n'existe pas");
             }
             break;
         default:
