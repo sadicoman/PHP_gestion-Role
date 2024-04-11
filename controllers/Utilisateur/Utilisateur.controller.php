@@ -59,16 +59,16 @@ class UtilisateurController extends MainController
         if ($this->utilisateurManager->verifLoginDisponible($login)) {
             $passwordCrypte = password_hash($password, PASSWORD_DEFAULT);
             $clef = rand(0, 9999);
-            if ($this->utilisateurManager->bdCreerCompte($login, $passwordCrypte, $mail, $clef)) {
+            if ($this->utilisateurManager->bdCreerCompte($login, $passwordCrypte, $mail, $clef, "profils/profil.png")) {
                 $this->sendMailValidation($login, $mail, $clef);
-                Toolbox::ajouterMessageAlerte("Le compte à bien été crée, un mail de validation vous à été envoyé !", Toolbox::COULEUR_VERTE);
+                Toolbox::ajouterMessageAlerte("La compte a été créé, Un mail de validation vous a été envoyé !", Toolbox::COULEUR_VERTE);
                 header("Location: " . URL . "login");
             } else {
                 Toolbox::ajouterMessageAlerte("Erreur lors de la création du compte, recommencez !", Toolbox::COULEUR_ROUGE);
                 header("Location: " . URL . "creerCompte");
             }
         } else {
-            Toolbox::ajouterMessageAlerte("Le login est déja utilisé !", Toolbox::COULEUR_ROUGE);
+            Toolbox::ajouterMessageAlerte("Le login est déjà utilisé !", Toolbox::COULEUR_ROUGE);
             header("Location: " . URL . "creerCompte");
         }
     }
