@@ -86,4 +86,16 @@ class UtilisateurManager extends MainManager
         $stmt->closeCursor();
         return $estModifier;
     }
+
+    public function bdModificationPassword($login, $password)
+    {
+        $req = "UPDATE utilisateur set password = :password WHERE login = :login";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":login", $login, PDO::PARAM_STR);
+        $stmt->bindValue(":password", $password, PDO::PARAM_STR);
+        $stmt->execute();
+        $estModifier = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $estModifier;
+    }
 }

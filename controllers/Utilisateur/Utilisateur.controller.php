@@ -121,6 +121,28 @@ class UtilisateurController extends MainController
         $this->genererPage($data_page);
     }
 
+    public function validation_modificationPassword($ancienPassword, $nouveauPassword, $confirmationNouveauPassword)
+    {
+        if ($nouveauPassword === $confirmationNouveauPassword) {
+            if ($this->utilisateurManager->isCombinaisonValide($_SESSION['profil']['login'], $ancienPassword)) {
+                $passwordCrypte = password_hash($nouveauPassword, PASSWORD_DEFAULT);
+                if ($this->utilisateurManager->bdModificationPassword($_SESSION['profil']['login'], $passwordCrypte)) {
+                    Toolbox::ajouterMessageAlerte("La modification du password a été effectuée", Toolbox::COULEUR_VERTE);
+                    header("Location: " . URL . "compte/profil");
+                } else {
+                    Toolbox::ajouterMessageAlerte("La modification a échouée", Toolbox::COULEUR_ROUGE);
+                    header("Location: " . URL . "compte/modificationPassword");
+                }
+            } else {
+                Toolbox::ajouterMessageAlerte("La combinaison login / ancien password ne correspond pas", Toolbox::COULEUR_ROUGE);
+                header("Location: " . URL . "compte/modificationPassword");
+            }
+        } else {
+            Toolbox::ajouterMessageAlerte("Les passwords ne correspondent pas", Toolbox::COULEUR_ROUGE);
+            header("Location: " . URL . "compte/modificationPassword");
+        }
+    }
+
     public function pageErreur($msg)
     {
         parent::pageErreur($msg);
