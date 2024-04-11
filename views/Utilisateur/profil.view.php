@@ -26,5 +26,8 @@
     </form>
 </div>
 
+<div>
+    <a href="<?= URL; ?>compte/modificationPassword" class="btn btn-warning">Changer le mot de passe</a>
+</div>
 
 <!-- <?= $_SESSION['profil']['role'] ?> -->
