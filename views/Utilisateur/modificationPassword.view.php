@@ -10,8 +10,11 @@
         <input type="password" class="form-control" id="nouveauPassword" name="nouveauPassword" required>
     </div>
     <div class="mb-3">
-        <label for="ConfirmNouveauPassword" class="form-label">Confirmation mot de passe</label>
-        <input type="password" class="form-control" id="ConfirmNouveauPassword" name="ConfirmNouveauPassword" required>
+        <label for="confirmNouveauPassword" class="form-label">Confirmation mot de passe</label>
+        <input type="password" class="form-control" id="confirmNouveauPassword" name="confirmNouveauPassword" required>
     </div>
-    <button type="submit" class="btn btn-primary">Valider</button>
+
+    <p class="alert alert-danger d-none" id="erreur">Les passwords ne correspondent pas</p>
+
+    <button id="btnSubmit" type="submit" class="btn btn-primary" disabled>Valider</button>
 </form>

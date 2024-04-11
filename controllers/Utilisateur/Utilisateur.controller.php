@@ -114,6 +114,7 @@ class UtilisateurController extends MainController
         $data_page = [
             "page_description" => "Page de modification du password",
             "page_title" => "Page de modification du password",
+            "page_javascript" => ['modificationPassword.js'],
             "view" => "views/Utilisateur/modificationPassword.view.php",
             "template" => "views/common/template.php"
         ];
