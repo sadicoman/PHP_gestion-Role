@@ -99,6 +99,16 @@ class UtilisateurController extends MainController
         }
     }
 
+    public function validation_modificationMail($mail)
+    {
+        if ($this->utilisateurManager->bdModificationMailUser($_SESSION['profil']['login'], $mail)) {
+            Toolbox::ajouterMessageAlerte("La modification est effectuée !", Toolbox::COULEUR_VERTE);
+        } else {
+            Toolbox::ajouterMessageAlerte("Aucune modification effectuée !", Toolbox::COULEUR_ROUGE);
+        }
+        header("Location: " . URL . "compte/profil");
+    }
+
     public function pageErreur($msg)
     {
         parent::pageErreur($msg);
