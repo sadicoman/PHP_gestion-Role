@@ -55,7 +55,7 @@ try {
             $utilisateurController->renvoyerMailValidation($url[1]);
             break;
         case "validationMail":
-            echo "test";
+            $utilisateurController->validation_mailCompte($url[1], $url[2]);
             break;
         case "compte":
             if (!Securite::estConnecte()) {
