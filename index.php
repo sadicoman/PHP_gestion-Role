@@ -51,6 +51,12 @@ try {
                 header('Location: ' . URL . "creerCompte");
             }
             break;
+        case "renvoyerMailValidation":
+            $utilisateurController->renvoyerMailValidation($url[1]);
+            break;
+        case "validationMail":
+            echo "test";
+            break;
         case "compte":
             if (!Securite::estConnecte()) {
                 Toolbox::ajouterMessageAlerte("Veuillez vous connecter !", Toolbox::COULEUR_ROUGE);

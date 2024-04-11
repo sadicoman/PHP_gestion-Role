@@ -60,6 +60,6 @@ class UtilisateurManager extends MainManager
     public function verifLoginDisponible($login)
     {
         $utilisateur = $this->getUserInformation($login);
-        return empty($utilisateur) === 0;
+        return empty($utilisateur);
     }
 }
