@@ -13,7 +13,7 @@
         <div class="row">
             <label for="mail" class="col-2 col-form-label">Mail :</label>
             <div class="col-8">
-                <input type="mail" class="form-control" name="mail" value="<?= $utilisateur['mail'] ?>" />
+                <input type="email" class="form-control" name="mail" value="<?= $utilisateur['mail'] ?>" />
             </div>
             <div class="col-2">
                 <button class="btn btn-success" id="btnValidModifMail" type="submit">
@@ -26,8 +26,17 @@
     </form>
 </div>
 
-<div>
+<div class="mt-2">
     <a href="<?= URL; ?>compte/modificationPassword" class="btn btn-warning">Changer le mot de passe</a>
+    <button id="btnSupCompte" class="btn btn-danger">Supprimer son compte</button>
+</div>
+
+<div id="suppressionCompte" class="d-none m-2">
+    <div class="alert alert-danger">
+        Veuillez confirmer la suppression du compte.
+        <br />
+        <a href="<?= URL ?>compte/suppressionCompte" class="btn btn-danger">Je Souhaite supprimer mon compte définitivement !</a>
+    </div>
 </div>
 
 <!-- <?= $_SESSION['profil']['role'] ?> -->
