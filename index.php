@@ -8,9 +8,11 @@ require_once("./controllers/Toolbox.class.php");
 require_once("./controllers/Securite.class.php");
 require_once("./controllers/Visiteur/Visiteur.controller.php");
 require_once("./controllers/Utilisateur/Utilisateur.controller.php");
+require_once("./controllers/Administrateur/Administrateur.controller.php");
 
 $visiteurController = new VisiteurController();
 $utilisateurController = new UtilisateurController();
+$administrateurController = new AdministrateurController();
 
 try {
     if (empty($_GET['page'])) {
@@ -101,7 +103,26 @@ try {
                         throw new Exception("La page n'existe pas");
                 }
             }
-
+            break;
+        case "administration":
+            if (!Securite::estConnecte()) {
+                Toolbox::ajouterMessageAlerte("Veuillez vous connecter !", Toolbox::COULEUR_ROUGE);
+                header("Location: " . URL . "login");
+            } elseif (!Securite::estAdministrateur()) {
+                Toolbox::ajouterMessageAlerte("Vous n'avez pas le droit d'être ici!", Toolbox::COULEUR_ROUGE);
+                header("Location: " . URL . "login");
+            } else {
+                switch ($url[1]) {
+                    case "droits":
+                        $administrateurController->droits();
+                        break;
+                    case "validation_modificationRole":
+                        $administrateurController->validation_modificationRole($_POST['login'], $_POST['role']);
+                        break;
+                    default:
+                        throw new Exception("La page n'existe pas");
+                }
+            }
             break;
         default:
             throw new Exception("La page n'existe pas");
