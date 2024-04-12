@@ -43,16 +43,17 @@ class UtilisateurManager extends MainManager
         return $resultat;
     }
 
-    public function bdCreerCompte($login, $passwordCrypte, $mail, $clef, $image)
+    public function bdCreerCompte($login, $passwordCrypte, $mail, $clef, $image, $role)
     {
         $req = "INSERT INTO utilisateur (login, password, mail, est_valide, role, clef, image)
-        VALUES (:login, :password, :mail, 0, 'utilisateur', :clef, :image)";
+        VALUES (:login, :password, :mail, 0, :role , :clef, :image)";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(":login", $login, PDO::PARAM_STR);
         $stmt->bindValue(":password", $passwordCrypte, PDO::PARAM_STR);
         $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
         $stmt->bindValue(":clef", $clef, PDO::PARAM_INT);
         $stmt->bindValue(":image", $image, PDO::PARAM_STR);
+        $stmt->bindValue(":role", $role, PDO::PARAM_STR);
         $stmt->execute();
         $estModifier = ($stmt->rowCount() > 0);
         $stmt->closeCursor();
@@ -110,5 +111,28 @@ class UtilisateurManager extends MainManager
         $estModifier = ($stmt->rowCount() > 0);
         $stmt->closeCursor();
         return $estModifier;
+    }
+
+    public function bdAjoutImage($login, $image)
+    {
+        $req = "UPDATE utilisateur set image = :image WHERE login = :login";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":login", $login, PDO::PARAM_STR);
+        $stmt->bindValue(":image", $image, PDO::PARAM_STR);
+        $stmt->execute();
+        $estModifier = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $estModifier;
+    }
+
+    public function getImageUtilisateur($login)
+    {
+        $req = "SELECT image FROM utilisateur WHERE login = :login";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":login", $login, PDO::PARAM_STR);
+        $stmt->execute();
+        $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $resultat['image'];
     }
 }
