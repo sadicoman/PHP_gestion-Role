@@ -19,6 +19,11 @@ class UtilisateurController extends MainController
                 $_SESSION['profil'] = [
                     "login" => $login,
                 ];
+                Securite::genererCookieConnexion();
+                echo $_SESSION['profil'][Securite::COOKIE_NAME];
+                echo "<br />";
+                echo $_COOKIE[Securite::COOKIE_NAME];
+
                 header("location: " . URL . "compte/profil");
             } else {
                 $msg = "Le compte " . $login . " n'a pas été activé par mail. ";
@@ -51,6 +56,7 @@ class UtilisateurController extends MainController
     {
         Toolbox::ajouterMessageAlerte("La deconnecxion est effectuée", Toolbox::COULEUR_VERTE);
         unset($_SESSION['profil']);
+        setcookie(Securite::COOKIE_NAME, "", time() - 3600);
         header("Location: " . URL . "accueil");
     }
 
